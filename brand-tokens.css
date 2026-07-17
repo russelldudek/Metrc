@@ -1,3 +1,5 @@
+@import url('./visual-qa.css');
+
 :root {
   /* Metrc recognition layer - sampled from the official 2026 deep-forest logo asset. */
   --metrc-forest: #213f39;
@@ -6,6 +8,17 @@
   --metrc-mist: #eef4f0;
   --metrc-paper: #fbfcfa;
   --metrc-white: #ffffff;
+
+  /* Homepage v2 compatibility aliases. These were previously undefined,
+     which invalidated colors/backgrounds and caused dark text on dark CTAs. */
+  --white: var(--metrc-white);
+  --metrc-cream: #f5f5ef;
+  --metrc-slate: #536a65;
+  --metrc-line: rgba(33, 63, 57, 0.18);
+  --metrc-green: #36a852;
+  --metrc-mint: #dff2e3;
+  --candidate-gold: #f2ad4b;
+  --candidate-orange: #d9774a;
 
   /* Candidate-original trace system accents; not represented as official Metrc colors. */
   --trace-amber: #f2ad4b;

@@ -1,0 +1,26 @@
+:root {
+  /* Metrc recognition layer - sampled from the official 2026 deep-forest logo asset. */
+  --metrc-forest: #213f39;
+  --metrc-forest-2: #244841;
+  --metrc-ink: #142722;
+  --metrc-mist: #eef4f0;
+  --metrc-paper: #fbfcfa;
+  --metrc-white: #ffffff;
+
+  /* Candidate-original trace system accents; not represented as official Metrc colors. */
+  --trace-amber: #f2ad4b;
+  --trace-mint: #73c6a8;
+  --trace-blue: #65a9bf;
+  --trace-red: #d86955;
+
+  --text: #17231f;
+  --muted: #5b6c66;
+  --line: rgba(33, 63, 57, 0.18);
+  --shadow: 0 22px 70px rgba(20, 39, 34, 0.14);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 30px;
+  --font-display: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}

@@ -16,6 +16,18 @@
   min-width: 0;
 }
 
+/* Remove the legacy angled hero sheet. It was still rendering over the next
+   section because the homepage loads the legacy and v2 stylesheets together. */
+.hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+.company-moment {
+  position: relative;
+  z-index: 1;
+}
+
 /* CTA contrast and text containment. */
 a.button.primary,
 a.button.primary:link,
@@ -47,6 +59,48 @@ a.button.secondary:visited {
 
 .hero-actions .button {
   max-width: 100%;
+}
+
+/* Restrained gold recognition accents. */
+.site-nav .nav-cta {
+  border-color: rgba(242,173,75,.82);
+  box-shadow: inset 0 -2px 0 rgba(242,173,75,.18);
+}
+
+.hero .hero-note {
+  border-left-color: var(--candidate-gold);
+}
+
+.company-moment .moment-number {
+  box-shadow: inset 0 0 0 3px rgba(242,173,75,.24);
+}
+
+.model .scenario-button[aria-selected="true"] {
+  box-shadow:
+    0 0 0 2px rgba(242,173,75,.82),
+    0 12px 24px rgba(11,60,56,.16);
+}
+
+.model .contract-state {
+  background: #fff3dc;
+  border: 1px solid rgba(242,173,75,.48);
+  color: var(--metrc-forest);
+}
+
+.entry .phase-days,
+.questions .question > span {
+  color: #8b5a08;
+}
+
+.entry .phase::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 38px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--candidate-gold);
 }
 
 /* Rebalance the dark contradiction section. */
@@ -82,14 +136,13 @@ a.button.secondary:visited {
   text-align: center;
 }
 
-/* Restore the warm gold contrast band and repair the question cards.
-   The legacy stylesheet adds a generated counter and a two-column grid to
-   .question; this section owns its own explicit numbers, so both are reset. */
+/* Repair the Executive Questions cards. The legacy stylesheet adds a
+   generated counter and a narrow two-column grid; this section already owns
+   explicit numbers, so those legacy behaviors are fully reset. */
 .section.questions {
-  background:
-    radial-gradient(circle at 82% 16%, rgba(255,255,255,.48), transparent 30%),
-    linear-gradient(135deg, #f5b64f 0%, var(--candidate-gold) 56%, #d99d36 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f8f3 100%);
   color: var(--metrc-ink);
+  border-top: 1px solid rgba(242,173,75,.18);
 }
 
 .questions .eyebrow {
@@ -106,17 +159,22 @@ a.button.secondary:visited {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   align-items: stretch;
+  counter-reset: none;
 }
 
 .questions .question {
   display: block;
+  grid-template-columns: none;
+  counter-increment: none;
+  width: 100%;
   min-width: 0;
   min-height: 154px;
   padding: 26px 28px;
-  border: 1px solid rgba(11,60,56,.16);
+  border: 1px solid rgba(11,60,56,.14);
+  border-top: 3px solid rgba(242,173,75,.58);
   border-radius: 18px;
-  background: rgba(255,255,255,.91);
-  box-shadow: 0 16px 38px rgba(20,39,34,.08);
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 16px 38px rgba(20,39,34,.07);
   color: var(--metrc-forest);
   font-size: clamp(1rem, 1.35vw, 1.17rem);
   font-weight: 800;
@@ -125,6 +183,7 @@ a.button.secondary:visited {
   overflow-wrap: normal;
   word-break: normal;
   hyphens: manual;
+  text-wrap: pretty;
 }
 
 .questions .question::before {
@@ -135,10 +194,54 @@ a.button.secondary:visited {
 .questions .question > span {
   display: block;
   margin: 0 0 18px;
-  color: var(--metrc-forest);
   font: 900 .72rem/1 var(--font-mono);
   letter-spacing: .12em;
   text-transform: uppercase;
+}
+
+/* The application-materials close is the deliberate gold punctuation mark. */
+.section.docs {
+  background:
+    radial-gradient(circle at 84% 14%, rgba(255,255,255,.34), transparent 30%),
+    linear-gradient(135deg, #f6bd5c 0%, var(--candidate-gold) 55%, #d99d36 100%);
+  color: var(--metrc-ink);
+}
+
+.docs .eyebrow,
+.docs h2 {
+  color: var(--metrc-forest);
+}
+
+.docs h2 {
+  text-wrap: balance;
+}
+
+.docs .doc-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,.93);
+  border-color: rgba(33,63,57,.22);
+  box-shadow: 0 18px 38px rgba(20,39,34,.09);
+}
+
+.docs .doc-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--metrc-forest), rgba(33,63,57,.36));
+}
+
+.docs .doc-card:hover,
+.docs .doc-card:focus-visible {
+  border-color: rgba(33,63,57,.52);
+  box-shadow: 0 22px 46px rgba(20,39,34,.15);
+}
+
+.docs .doc-card small {
+  color: #704907;
 }
 
 /* Global text safety without forcing one-word-per-line wrapping. */
@@ -200,5 +303,9 @@ a.button.secondary:visited {
   .questions .question {
     padding: 22px;
     font-size: 1rem;
+  }
+
+  .docs .doc-card {
+    min-height: 180px;
   }
 }

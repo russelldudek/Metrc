@@ -3,8 +3,6 @@ name: Publish candidate vision
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - 'docs/**'
   workflow_dispatch:
 
 permissions:
@@ -18,34 +16,58 @@ concurrency:
 
 jobs:
   build:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Restore campaign source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f campaign-source.part00
+          cat campaign-source.part* | base64 --decode | tar -xzf -
+          test -f index.html
+          test -f qa/audit.py
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - name: Install document dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install playwright pypdf beautifulsoup4
+          pip install playwright pypdf beautifulsoup4 requests pillow numpy
           python -m playwright install --with-deps chromium
-      - name: Generate and audit campaign PDFs
+
+      - name: Prepare official brand assets
+        run: python qa/fetch_brand.py
+
+      - name: Generate and audit campaign
         run: |
           python qa/render.py
           python qa/audit.py
-      - name: Commit generated PDFs
+
+      - name: Commit complete campaign to main
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs
+          git rm -f campaign-source.part*
+          rm -f qa/index-desktop.png qa/index-laptop.png qa/index-tablet.png qa/index-mobile.png
+          git add -A
           if ! git diff --cached --quiet; then
-            git commit -m "Generate candidate campaign PDFs"
+            git commit -m "Publish Metrc Chief of Staff candidate vision"
             git push
           fi
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+
   deploy:
     needs: build
     environment:

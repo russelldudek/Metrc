@@ -1,3 +1,10 @@
+const homepageStyles = document.querySelector('link[href="homepage-v2.css"]') || document.createElement('link');
+if (!homepageStyles.parentNode) {
+  homepageStyles.rel = 'stylesheet';
+  homepageStyles.href = 'homepage-v2.css';
+  document.head.appendChild(homepageStyles);
+}
+
 const scenarios = {
   modernization: {
     label: 'Platform modernization',

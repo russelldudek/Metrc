@@ -7,6 +7,9 @@
   --metrc-paper: #fbfcfa;
   --metrc-white: #ffffff;
 
+  /* Compatibility alias used by the redesigned homepage button system. */
+  --white: var(--metrc-white);
+
   /* Candidate-original trace system accents; not represented as official Metrc colors. */
   --trace-amber: #f2ad4b;
   --trace-mint: #73c6a8;
